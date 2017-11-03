@@ -1,9 +1,5 @@
 #!/bin/sh
-if [ "$(whoami)" != "root" ]
-then
-    sudo su -s "$0"
-    exit
-fi
+sudo su
  docker run -d -p 80:80 --name="ngrinder-controller" -h "ngrinder-controller" ngrinder:controller
 echo ____________DOCKER_CONTROLLER____________
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' ngrinder-controller >>etc/hosts
