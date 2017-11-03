@@ -1,4 +1,8 @@
 #!/bin/sh
+docker run -d -p 80:80 --name="ngrinder-controller" -h "ngrinder-controller" ngrinder:controller
+echo ____________DOCKER_CONTROLLER____________
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' ngrinder-controller >>etc/hosts
+echo _______________DOCKER IP SETTING_____________
 curpath=`dirname $0`
 cd ${curpath}
 while :
