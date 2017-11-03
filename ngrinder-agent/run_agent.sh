@@ -1,7 +1,12 @@
 #!/bin/sh
- su - root -c docker run -d -p 80:80 --name="ngrinder-controller" -h "ngrinder-controller" ngrinder:controller
+if [ "$(whoami)" != "root" ]
+then
+    sudo su -s "$0"
+    exit
+fi
+ docker run -d -p 80:80 --name="ngrinder-controller" -h "ngrinder-controller" ngrinder:controller
 echo ____________DOCKER_CONTROLLER____________
-su - root -c docker inspect --format '{{ .NetworkSettings.IPAddress }}' ngrinder-controller >>etc/hosts
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' ngrinder-controller >>etc/hosts
 echo _______________DOCKER IP SETTING_____________
 curpath=`dirname $0`
 cd ${curpath}
